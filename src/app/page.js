@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Card } from 'react-bootstrap';
 
 function Home() {
@@ -17,20 +17,17 @@ function Home() {
 
   const handleClick = () => {
     if (jokeBtnText === 'GET A JOKE') {
-      setJokeSetup(jokeSetup);
+      getJoke();
       setJokeBtnText('GET PUNCHLINE');
     } else if (jokeBtnText === 'GET PUNCHLINE') {
-      setJokeDelivery(jokeDelivery);
-      setJokeBtnText('GET NEW JOKE');
-    } else {
+      setJokeBtnText('GET ANOTHER JOKE');
+    } else if (jokeBtnText === 'GET ANOTHER JOKE') {
+      setJokeSetup('');
+      setJokeDelivery('');
       setJokeBtnText('GET PUNCHLINE');
       getJoke();
     }
   };
-
-  useEffect(() => {
-    getJoke();
-  }, []);
 
   return (
     <>
@@ -38,7 +35,7 @@ function Home() {
         <Card style={{ width: '18rem' }}>
           <Card.Body>
             <Card.Text>{jokeSetup} </Card.Text>
-            <Card.Text>{jokeDelivery} </Card.Text>
+            {jokeBtnText === 'GET ANOTHER JOKE' && <Card.Text>{jokeDelivery} </Card.Text>}
           </Card.Body>
         </Card>
       </div>
